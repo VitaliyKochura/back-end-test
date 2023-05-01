@@ -1,0 +1,6 @@
+#index:
+#    path: /
+#    controller: App\Controller\HomeController::index
+app_file_view:
+  path: '/uploads/files/{filename}'
+  controller: 'App\Controller\FileController::view'

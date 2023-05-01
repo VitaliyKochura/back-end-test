@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Resumes' }}{% endblock %}
+
+{% block body %}
+    <div class="container my-4 p-4">
+        <div class="d-flex justify-content-between mb-2">
+            <a href="{{ path('home') }}" class="link-secondary">Back</a>
+            <a href="{{ path('resume_add') }}" class="btn btn-dark">Create a new resume</a>
+        </div>
+        <h2 class="text-center">All resumes</h2>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>№</th>
+                <th>Position</th>
+                <th>File/Text</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for resume in resumes %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ resume.position }}</td>
+                    <td>
+                        {% if resume.filePath is not null %}
+                            <a href="{{ path('files_view', {'filename': resume.filePath}) }}">View file</a>
+                        {% else %}
+                            {{ resume.resumeText }}
+                        {% endif %}
+                    </td>
+                    <td>{{ resume.createdAt|date('d-m-Y H:i:s') }}</td>
+                    <td>{{ resume.updatedAt|date('d-m-Y H:i:s') }}</td>
+                    <td class="text-center">
+                        <form action="{{ path('resume_send', {'id': resume.id}) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-success btn-sm">{{ 'Send' }}</button>
+                        </form>
+                        <a href="{{ path('resume_edit', {'id': resume.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ path('resume_delete', {'id': resume.id}) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger btn-sm">{{ 'Delete' }}</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

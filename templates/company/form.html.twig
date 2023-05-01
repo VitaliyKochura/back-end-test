@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ action ~ ' Company' }}{% endblock %}
+
+{% block body %}
+    <div class="container my-4 p-4">
+        <a href="{{ path('company_index') }}" class="link-secondary">Back</a>
+        <h2 class="text-center">{{ action ~ ' Company' }}</h2>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name, { 'value': company.name }) }}
+            </div>
+            <div class="col-md-6 mb-4">
+                {{ form_label(form.website) }}
+                {{ form_widget(form.website, { 'value': company.website }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                {{ form_label(form.address) }}
+                {{ form_widget(form.address, { 'value': company.address }) }}
+            </div>
+            <div class="col-md-6 mb-4">
+                {{ form_label(form.phone) }}
+                {{ form_widget(form.phone, { 'value': company.phone }) }}
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success my-4">{{ 'Save' }}</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
